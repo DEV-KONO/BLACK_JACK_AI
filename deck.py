@@ -1,5 +1,5 @@
 import random
-from BLACKJACK.card import card
+from card import card
 
 symbols = ["Hearts", "Spades", "Diamonds", "Clubs"]
 values = ["Ace", 2,3,4,5,6,7,8,9,10,"Jack", "Queen", "King"]

@@ -1,7 +1,6 @@
-from pickle import FALSE
-from BLACKJACK.croupier import croupier
-from BLACKJACK.deck import deck
-from BLACKJACK.player import player
+from croupier import croupier
+from deck import deck
+from player import player
 
 Deck = deck()
 Croupier = croupier()

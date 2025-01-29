@@ -1,4 +1,4 @@
-from BLACKJACK.player import player
+from player import player
 
 class croupier(player):
     

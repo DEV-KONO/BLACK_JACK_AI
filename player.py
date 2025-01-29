@@ -1,6 +1,3 @@
-from sympy import true
-
-
 class player:
     def __init__(self):
         self.current_cards = []
