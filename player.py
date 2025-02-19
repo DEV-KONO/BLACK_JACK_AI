@@ -1,14 +1,26 @@
+import random
+
 class player:
-    def __init__(self):
+    def __init__(self, behaviour):
         self.current_cards = []
         self.card_sum = 0
+        self.behaviour = behaviour
 
-    #no actual use
-    def Analize(self):
-        if self.card_sum <= 11:
-            return True
-        else:
-            return False
+    def play(self):
+        if self.behaviour == "Noob":
+            return random.choice(["H", "S"])
+        
+        elif self.behaviour == "Normal":
+            if self.card_sum > 11:
+                return "S"
+            else:
+                return "H"
+        
+        elif self.behaviour == "Intermediate":
+            if self.card_sum <= 11:
+                return "H"
+            
+            
         
     def count(self):
         self.card_sum = 0

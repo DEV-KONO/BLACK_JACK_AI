@@ -1,7 +1,9 @@
-from player import player
+class croupier():
 
-class croupier(player):
-    
+    def __init__(self):
+        self.current_cards = []
+        self.card_sum = 0
+
     def count(self):
 
         self.card_sum = 0
@@ -35,7 +37,4 @@ class croupier(player):
                 print(f"Croupier Cards: Flipped")
     
     def flip(self):
-        self.current_cards[0].visible = False
-
-    def reveal(self):
-        self.current_cards[0].visible = True
+        self.current_cards[0].visible = not self.current_cards[0].visible
