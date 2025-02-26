@@ -1,13 +1,14 @@
 import random
+import time
 
 
-train_x = [i+1 for i in range(0,10)]
-train_y = [(2*i) + 3 for i in train_x]
+train_x = [i+1 for i in range(0,100)]
+train_y = [i*2 for i in train_x]
 
 w = random.uniform(0,1)
 b = random.uniform(0,1)
 
-alpha = .001
+alpha = .0001
 
 cuad_diff = []
 predicts = []
@@ -35,10 +36,15 @@ def DMSE_en_Db():
 def predict(w,x,b):
     return w * x + b
 
+def MAPE():
+    return (sum(abs(r - p) / r for r, p in zip(train_y, predicts)) / len(train_y)) * 100
+
 # def ReLU(x):
 #     return x * (x > 0)
 
 prev_mse = float('inf')
+
+start_time = time.time()
 
 for j in range(0,1000000):
     for i in range(0,len(train_x)):
@@ -47,13 +53,14 @@ for j in range(0,1000000):
         cuad_diff.append((train_y[i] - predict(w,i+1,b))**2)
     
     mse = MSE()
+    mape = MAPE()
 
     print(f"Iteration: {j}")
-    print(f"MSE = {MSE()}")
+    print(f"MSE = {MSE()}   MAPE = {MAPE()}%")
     # print(f"MSE = {MSE()}   DMSE/Dw = {DMSE_en_Dw()}    DMSE/Db = {DMSE_en_Db()}    Weight = {w}    Bias = {b}")
 
-    if abs(prev_mse - mse) < 1e-9:  # Si la mejora es mínima, detenemos
-        print(f"Converged at epoch {j}, MSE = {mse:.10f}")
+    if abs(prev_mse - mse) < 1e-10:  # Si la mejora es mínima, detenemos
+        print(f"Converged at iteration {j}, MSE = {mse:.10f}, MAPE = {mape:.10f}, Weight = {w:.10f}, Bias = {b:.10f}, Alpha = {alpha}")
         break  
 
     prev_mse = mse
@@ -64,10 +71,15 @@ for j in range(0,1000000):
     predicts = []
     cuad_diff = []
 
+end_time = time.time()
+
+print(f"Tiempo de entrenamiento: {end_time-start_time:.4f}")
+
 flag = True
 
 while flag:
     test = float(input("Ingrese un numero: "))
 
     print(f"Numero Predicho: {predict(w,test,b)}")
-    print(f"Numero Real: {2*test+3}")
+    print(f"Numero Real: {2*test}")
+    print(f"Error = {abs(((2*test)-predict(w,test,b))/(2*test))*100}%")
