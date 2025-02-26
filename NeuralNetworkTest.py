@@ -2,7 +2,7 @@ import random
 import time
 
 
-train_x = [i+1 for i in range(0,100)]
+train_x = [i+1 for i in range(0,10)]
 train_y = [i*2 for i in train_x]
 
 w = random.uniform(0,1)
@@ -55,8 +55,8 @@ for j in range(0,1000000):
     mse = MSE()
     mape = MAPE()
 
-    print(f"Iteration: {j}")
-    print(f"MSE = {MSE()}   MAPE = {MAPE()}%")
+    # print(f"Iteration: {j}")
+    # print(f"MSE = {MSE()}   MAPE = {MAPE()}%")
     # print(f"MSE = {MSE()}   DMSE/Dw = {DMSE_en_Dw()}    DMSE/Db = {DMSE_en_Db()}    Weight = {w}    Bias = {b}")
 
     if abs(prev_mse - mse) < 1e-10:  # Si la mejora es mínima, detenemos

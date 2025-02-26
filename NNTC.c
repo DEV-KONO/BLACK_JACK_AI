@@ -29,11 +29,11 @@ void main() {
     float w = RandomFloat();
     float b = RandomFloat();
 
-    printf("Weight : %f, Bias : %f\n", w, b);
+    // printf("Weight : %f, Bias : %f\n", w, b);
 
-    float alpha = 0.001f;
+    float alpha = 0.28f;
 
-    int epochs = 1000000;
+    int epochs = 1000000000;
 
     float prev_mse = 0;
 
@@ -52,12 +52,12 @@ void main() {
 
         float mse = MeanSquaredError(SquaredDiff);
 
-        if (epoch%1 == 0) {
-            printf("Epoch : %d\nMSE : %f\n", epoch, mse);
-        }
+        // if (epoch%10000 == 0) {
+        //     printf("Epoch : %d\nMSE : %f\n", epoch, mse);
+        // }
 
-        if (fabsf(prev_mse - mse) < 1E-8) {
-            printf("Converged at Epoch %d\nMSE : %f, Weight : %f, Bias : %f, Alpha : %f\n", epoch, mse, w, b, alpha);
+        if (fabsf(prev_mse - mse) < 1E-10) {
+            printf("Converged at Epoch %d\nMSE : %f, Weight : %f, Bias : %f, Alpha : %.10f\n", epoch, mse, w, b, alpha);
             break;
         }
 
@@ -84,7 +84,34 @@ void main() {
 
     float end_time = (float)clock()/CLOCKS_PER_SEC;
 
-    printf("Tiempo de Entrenamiento : %f", end_time - start_time);
+    printf("Tiempo de Entrenamiento : %.20f\n", end_time - start_time);
+
+    int flag = 1;
+    float test = 0;
+    char input = ' ';
+
+    do
+    {
+        printf("Ingrese un Numero : ");
+        scanf("%f", &test);
+
+        printf("El numero ingresado es : %f, La predicción es : %f, Error : %%%f\n", test, Predict(w, test, b), ((2*test - Predict(w, test, b))/2*test)*100);
+        
+        do
+        {
+            printf("Desea Continuar? : (Y/N) ");
+            scanf(" %c", &input);
+
+            if (input != 'y' && input != 'Y' && input != 'n' && input != 'N') {
+                printf("Caracter incorrecto, intente de nuevo!\n");
+            } else if (input == 'n' || input == 'N') {
+                flag = 0;
+            }
+
+        } while (input != 'y' && input != 'Y' && input != 'n' && input != 'N');
+        
+    } while (flag);
+    
 
 }
 
